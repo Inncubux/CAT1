@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.src.Models
+namespace api.src.DTOs
 {
-    public class User
+    public class CreateUserDto
     {
-        [Key]
         public string RUT {get;set;} = string.Empty;
         [StringLength(100, MinimumLength = 3)]
         public required string nombre {get;set;} = string.Empty;
@@ -16,6 +15,5 @@ namespace api.src.Models
         [RegularExpression(@"Masculino|Femenino|prefiero no decirlo")]
         public required string genero {get;set;} = string.Empty;
         public string fechaNsac {get;set;} = string.Empty;
-
     }
 }
