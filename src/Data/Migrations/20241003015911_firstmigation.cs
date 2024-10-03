@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace api.src.Data.Migration
+namespace api.src.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class firstmigration : Migration
+    public partial class firstmigation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

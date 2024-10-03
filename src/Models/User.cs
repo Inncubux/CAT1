@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Bogus.DataSets;
 
 namespace api.src.Models
 {
@@ -15,7 +16,7 @@ namespace api.src.Models
         public string correo {get;set;} = string.Empty;
         [RegularExpression(@"Masculino|Femenino|prefiero no decirlo")]
         public required string genero {get;set;} = string.Empty;
-        public string fechaNac {get;set;} = string.Empty;
+        public DateTime fechaNac {get;set;}
 
     }
 }

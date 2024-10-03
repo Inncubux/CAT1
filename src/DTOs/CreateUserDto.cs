@@ -14,6 +14,6 @@ namespace api.src.DTOs
         public required string correo {get;set;} = string.Empty;
         [RegularExpression(@"Masculino|Femenino|prefiero no decirlo")]
         public required string genero {get;set;} = string.Empty;
-        public required string fechaNsac {get;set;} = string.Empty;
+        public required DateTime fechaNac {get;set;}
     }
 }

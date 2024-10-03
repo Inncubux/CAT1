@@ -12,6 +12,12 @@ string connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") ?? 
 builder.Services.AddDbContext<ApplicationDBcontext>(opt => opt.UseSqlite(connectionString));
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope()){
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDBcontext>();
+    await context.Database.MigrateAsync();
+    await Seeder.SeedAsync(context);
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
