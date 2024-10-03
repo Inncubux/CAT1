@@ -10,9 +10,10 @@ namespace api.src.Controllers
     [ApiController]
     public class UserController; ControllerBase
     {
-        //private readonly ;
-
+      //  private readonly IUserRepository _userRepository;
+      
     [HttpPost("")]
     public async Task<IResult> CreateUser(CreateUserDto createProductDto){
+        
     }
 }
