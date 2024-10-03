@@ -8,12 +8,11 @@ namespace api.src.Controllers
 {
     [Route("api/user")]
     [ApiController]
-    public class UserController; ControllerBase
-    {
+   // public class UserController; ControllerBase
+    //{
       //  private readonly IUserRepository _userRepository;
       
-    [HttpPost("")]
-    public async Task<IResult> CreateUser(CreateUserDto createProductDto){
-        
-    }
+   //  [HttpPost("")]
+   // public async Task<IResult> CreateUser(CreateUserDto createProductDto){
+
 }
