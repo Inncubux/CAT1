@@ -9,8 +9,8 @@ Env.Load();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 string connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") ?? "Database Source =app.db";
+builder.Services.AddDbContext<ApplicationDBcontext>(opt => opt.UseSqlite(connectionString));
 var app = builder.Build();
-builder.Services.AddDbContext<DatabaseContext>(opt => opt.UseSqlite(connectionString));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

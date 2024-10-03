@@ -130,3 +130,4 @@ C:\Users\axel0\Desktop\CAT1\api\obj\Debug\net8.0\api.pdb
 C:\Users\axel0\Desktop\CAT1\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 C:\Users\axel0\Desktop\CAT1\api\obj\Debug\net8.0\ref\api.dll
 C:\Users\axel0\Desktop\CAT1\api\bin\Debug\net8.0\Bogus.dll
+C:\Users\axel0\Desktop\CAT1\api\bin\Debug\net8.0\APICAT1.postman_collection.json

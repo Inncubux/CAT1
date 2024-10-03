@@ -8,14 +8,14 @@ namespace api.src.Models
 {
     public class User
     {
-        [Key]
+        public int Id {get;set;}
         public string RUT {get;set;} = string.Empty;
         [StringLength(100, MinimumLength = 3)]
         public required string nombre {get;set;} = string.Empty;
         public string correo {get;set;} = string.Empty;
         [RegularExpression(@"Masculino|Femenino|prefiero no decirlo")]
         public required string genero {get;set;} = string.Empty;
-        public string fechaNsac {get;set;} = string.Empty;
+        public string fechaNac {get;set;} = string.Empty;
 
     }
 }

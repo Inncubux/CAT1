@@ -7,8 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.src.Data
 {
-    public class DatabaseContext (DbContextOptions<DatabaseContext> options) : DbContext(options)
-    {
-        public DbSet<User> Users {get;set;}
+    public class ApplicationDBcontext (DbContextOptions dbContextOptions): DbContext(dbContextOptions){
+
+    public DbSet<User> Users {get;set;} = null!;
+        
     }
 }
