@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace api.src.DTOs
 {
-    public class CreateUserDto
+    public class UserDto
     {
+        public required int Id {get;set;}
         public required string RUT {get;set;} = string.Empty;
         [StringLength(100, MinimumLength = 3)]
         public required string nombre {get;set;} = string.Empty;

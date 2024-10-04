@@ -4,43 +4,56 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.src.Data;
 using api.src.DTOs;
+using api.src.Interfaces;
 using api.src.Models;
+using Bogus.DataSets;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.src.Controllers
 {
-    [Route("api/user")]
+    [Route("api/[controller]")]
     [ApiController]
    public class UserController : ControllerBase
     {
-      private readonly ApplicationDBcontext _context;
-
-      public UserController(ApplicationDBcontext context){
-         _context = context;
+      private readonly iUserRepository _userRepository;
+      
+      public UserController(iUserRepository userRepository){
+         _userRepository = userRepository;
       }
 
-      [HttpPost("")]
-      public async Task<IActionResult> CrearUsuario(CreateUserDto userDto){
-        if (userDto.fechaNac >= DateTime.Now){
+      [HttpPost]
+      public async Task<ActionResult> CreateUser([FromBody]UserDto userDto){
+         
+         var user = await _userRepository.GetUser(userDto.RUT);
+         if(user != null){
+            return Conflict("El RUT ya existe.");
+         }
+         
+         if (userDto.nombre.Length < 3 || userDto.nombre.Length > 100) {
+            return BadRequest("El nombre debe tener un mínimo de 3 letras y un máximo de 100");
+         }
+         
+         if (!isValidEmail(userDto.correo)){
          return BadRequest("La fecha de nacimiento debe ser anterior a la fecha actual.");
         }
 
-        if (_context.Users.Any(u => u.RUT == userDto.RUT))
-         {
-            return Conflict("El RUT ya esta registrado.");
-         }
+        if(userDto.genero != "Masculino" || userDto.genero != "Femenino" || userDto.genero != "Otro" || userDto.genero != "No especificado")
+        {
+         return BadRequest("El género ingresado no es Femenino, Masculino, otro o no especificado");
+        }
 
-         var user = new User
-         {
-            RUT = userDto.RUT,
-            nombre = userDto.nombre,
-            correo = userDto.correo,
-            genero = userDto.genero,
-            fechaNac = userDto.fechaNac
-         };
-         await _context.Users.AddAsync(user);
-         await _context.SaveChangesAsync();
-         return CreatedAtAction(nameof(CrearUsuario), new { id = user.Id }, user);
+        if()
       }
-   }
+
+        private bool isValidEmail(string correo)
+        {
+            try{
+               var mial = new System.Net.Mail.MailAddress(correo);
+               return mial.Address == correo;
+            }
+            catch{
+               return false;
+            }
+         }
+    }
 }
