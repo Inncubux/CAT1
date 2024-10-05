@@ -19,5 +19,6 @@ namespace api.src.Interfaces
         Task<User> EditUser(int id, UserDtoNOID userDtoNOID);
 
         Task<User> DeleteUser(int Id, UserDtoNOID userDtoNOID);
+        Task DeleteUser(int id);
     }
 }

@@ -7,6 +7,7 @@ using api.src.DTOs;
 using api.src.Interfaces;
 using api.src.Models;
 using Bogus.DataSets;
+using api.src.Mapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.src.Controllers
@@ -22,7 +23,7 @@ namespace api.src.Controllers
       }
 
       [HttpPost]
-      public async Task<ActionResult> CreateUser([FromBody]UserDto userDto){
+      public async Task<ActionResult> CreateUser([FromBody]UserDtoNOID userDto){
          
          var user = await _userRepository.GetUser(userDto.RUT);
          if(user != null){
@@ -34,17 +35,51 @@ namespace api.src.Controllers
          }
          
          if (!isValidEmail(userDto.correo)){
-         return BadRequest("La fecha de nacimiento debe ser anterior a la fecha actual.");
+            return BadRequest("La fecha de nacimiento debe ser anterior a la fecha actual.");
+         }
+
+          if(userDto.genero != "Masculino" || userDto.genero != "Femenino" || userDto.genero != "Otro" || userDto.genero != "No especificado")
+         {
+            return BadRequest("El género ingresado no es Femenino, Masculino, otro o no especificado");
+         }
+
+          if(userDto.fechaNac >= DateTime.Now){
+            return BadRequest("La fecha de nacimiento debe ser anterior a la fecha actual");
         }
 
-        if(userDto.genero != "Masculino" || userDto.genero != "Femenino" || userDto.genero != "Otro" || userDto.genero != "No especificado")
-        {
-         return BadRequest("El género ingresado no es Femenino, Masculino, otro o no especificado");
-        }
+        var newUser = userDto.toUserDTONOID();
+        await _userRepository.CreateUser(newUser);
 
-        if()
+        return StatusCode(201, "Usuario creado exitosamente.");
+      
       }
 
+      public async Task<IActionResult> DeleteUser([FromRoute] int id){
+        // var user = await _userRepository.DeleteUser(id);
+         if(user == null){
+            return NotFound("Usuario no encontrado");
+         }
+
+
+         return Ok("Usuario eliminado correctamente");
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Método para validar el correo eléctronico
         private bool isValidEmail(string correo)
         {
             try{
@@ -55,5 +90,5 @@ namespace api.src.Controllers
                return false;
             }
          }
-    }
+      }
 }
